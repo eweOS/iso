@@ -1,0 +1,9 @@
+base
+greetd
+tinyramfs
+linux
+efistub-tools
+neofetch
+vim
+sudo
+dinit
