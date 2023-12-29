@@ -1,0 +1,5 @@
+isofs/
+rootfs/
+*.img
+*.iso
+pacman.ewe.conf
