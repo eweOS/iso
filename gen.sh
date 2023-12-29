@@ -6,7 +6,7 @@ fi
 
 function crsh(){
   echo $@
-  sudo systemd-nspawn -D rootfs bash -c "$@"
+  sudo arch-chroot rootfs bash -c "$@"
 }
 
 sudo rm -r rootfs || true

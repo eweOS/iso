@@ -1,0 +1,46 @@
+name: Generate ISO image
+
+on:
+  schedule:
+    - cron: '0 0 */3 * *'
+  workflow_dispatch:
+
+jobs:
+  geniso:
+    strategy:
+      matrix:
+        arch: [x86_64, aarch64, riscv64]
+        include:
+          - arch: x86_64
+            debarch: amd64
+          - arch: aarch64
+            debarch: arm64
+          - arch: riscv64
+            debarch: riscv64
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: ${{ matrix.arch }}
+      - name: Build ISO for ${{ matrix.arch }}
+        run: |
+          docker run \
+            --rm \
+            -u root \
+            -v $(pwd):/${{ github.workspace }} \
+            -w ${{ github.workspace }} \
+            --platform linux/${{ matrix.debarch }} \
+            docker.io/debian:unstable \
+          bash -c "apt update && apt install -y wget dosfstools arch-install-scripts sudo pacman-package-manager xorriso arch-install-scripts squashfs-tools systemd-container && ./gen.sh"
+      - name: Collect result
+        run: |
+          mkdir -p result
+          cp eweos.iso result/eweos-${{ matrix.arch }}-liveimage.iso
+          sha256sum result/eweos-${{ matrix.arch }}-liveimage.iso > result/eweos-${{ matrix.arch }}-liveimage.iso.sha256
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: eweos-${{ matrix.arch }}-liveimage
+          path: result
