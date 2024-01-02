@@ -40,23 +40,23 @@ crsh "/config.sh"
 
 sudo umount ./rootfs/boot
 
-sudo cp ./bootfs.img ./isofs/efi.img
-
 sudo mksquashfs ./rootfs ./isofs/root.sfs
 
 sudo xorriso -as mkisofs \
    -o $ISOFILE \
-   -R -J -v -d -N \
+   -J -v -d -N \
    -x $ISOFILE \
+   -partition_offset 16 \
+   -no-pad \
    -hide-rr-moved \
    -no-emul-boot \
+   -append_partition 2 0xef bootfs.img \
+   -appended_part_as_gpt \
    -eltorito-platform efi \
-   -eltorito-boot efi.img \
+   -e --interval:appended_partition_2:all:: \
    -V "EWE_ISO" \
    -A "eweOS Live ISO"  \
    -iso-level 3 \
-   -joliet-long \
-   -append_partition 2 0xef isofs/efi.img \
    -partition_cyl_align all \
    isofs
 
