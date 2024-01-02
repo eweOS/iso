@@ -24,6 +24,8 @@ command = "bash -c 'cat /etc/motd && bash'"
 user = "ewe"
 EOF
 
+touch /etc/fstab
+
 cat <<EOF >/etc/tinyramfs/config
 root=overlay
 root_type=overlay

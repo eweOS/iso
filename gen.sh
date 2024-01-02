@@ -6,7 +6,12 @@ PROFILE=liveimage-minimal
 ISOFILE=eweos-$ISOARCH-$PROFILE.iso
 
 if [ ! -f "pacman.ewe.conf" ]; then
-  wget https://raw.githubusercontent.com/eweOS/packages/pacman/pacman.conf -O pacman.ewe.conf
+  if [ "`cat /etc/os-release | grep ^ID || true`" != "ID=ewe" ]; then
+    wget https://raw.githubusercontent.com/eweOS/packages/pacman/pacman.conf -O pacman.ewe.conf
+  else
+    sudo pacman -Sy --noconfirm libisoburn squashfs-tools arch-install-scripts e2fsprogs util-linux
+    cp /etc/pacman.conf ./pacman.ewe.conf
+  fi
   sed -i "s/Architecture = auto/Architecture = $ISOARCH/g" pacman.ewe.conf
 fi
 
@@ -22,7 +27,7 @@ rm bootfs.img
 mkdir -p rootfs
 mkdir -p isofs
 dd if=/dev/zero of=bootfs.img bs=1M count=128
-mkfs.fat -F 32 ./bootfs.img
+mkfs.vfat ./bootfs.img
 
 sudo mkdir -p ./rootfs/boot
 sudo mount ./bootfs.img ./rootfs/boot
