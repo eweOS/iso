@@ -52,3 +52,5 @@ This is a live image, ALL CHANGES WILL BE LOST when you reboot.
 EOF
 
 genefistub
+
+echo "y" | pacman -Scc

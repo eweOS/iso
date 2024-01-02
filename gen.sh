@@ -26,7 +26,7 @@ rm bootfs.img
 
 mkdir -p rootfs
 mkdir -p isofs
-dd if=/dev/zero of=bootfs.img bs=1M count=128
+dd if=/dev/zero of=bootfs.img bs=1M count=48
 mkfs.vfat ./bootfs.img
 
 sudo mkdir -p ./rootfs/boot
