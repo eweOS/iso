@@ -54,6 +54,10 @@ sudo xorriso -as mkisofs \
    -eltorito-boot efi.img \
    -V "EWE_ISO" \
    -A "eweOS Live ISO"  \
+   -iso-level 3 \
+   -joliet-long \
+   -append_partition 2 0xef isofs/efi.img \
+   -partition_cyl_align all \
    isofs
 
 sha256sum $ISOFILE > $ISOFILE.sha256
