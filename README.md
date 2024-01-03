@@ -8,8 +8,7 @@
 
 ## Requirement
 
-- pacman + pacstrap
-- systemd-nspawn (chroot/arch-chroot support is WIP)
+- pacman + arch-install-scripts (pacstrap + arch-chroot) (chroot support is WIP)
 - libisoburn (xorriso)
 - wget
 - squashfs-tools (mksquashfs)
