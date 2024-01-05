@@ -8,3 +8,4 @@ vim
 sudo
 dinit
 linux-firmware
+connman

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ISOARCH=x86_64
-PROFILE=liveimage-minimal
+ISOARCH=${2:-x86_64}
+PROFILE=${1:-liveimage-minimal}
 
 ISOFILE=eweos-$ISOARCH-$PROFILE.iso
 
@@ -16,8 +16,9 @@ if [ ! -f "pacman.ewe.conf" ]; then
 fi
 
 function crsh(){
-  echo $@
-  sudo arch-chroot rootfs bash -c "$@"
+  cp $1 ./rootfs/config.sh && chmod +x ./rootfs/config.sh
+  sudo arch-chroot rootfs bash -c "/config.sh"
+  sudo rm ./rootfs/config.sh
 }
 
 sudo rm -r rootfs || true
@@ -32,11 +33,16 @@ mkfs.vfat ./bootfs.img
 sudo mkdir -p ./rootfs/boot
 sudo mount ./bootfs.img ./rootfs/boot
 
-sudo pacstrap -G -M -C ./pacman.ewe.conf ./rootfs `cat profiles/$PROFILE/packages.txt | xargs`
+sudo pacstrap -G -M -c -C ./pacman.ewe.conf ./rootfs `cat profiles/$PROFILE/packages.txt | xargs`
 
-cp ./profiles/$PROFILE/config.sh ./rootfs/config.sh && chmod +x ./rootfs/config.sh
-
-crsh "/config.sh"
+chrconf=`mktemp`
+echo "#!/bin/bash" > $chrconf
+for configsh in ./commonconfig/*.sh; do
+  echo "echo \"#### setting up [`basename $configsh`]\"" >> $chrconf
+  cat $configsh >> $chrconf
+done
+cat ./profiles/$PROFILE/config.sh >> $chrconf
+crsh $chrconf
 
 sudo umount ./rootfs/boot
 
