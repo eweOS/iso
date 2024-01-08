@@ -3,7 +3,7 @@ greetd
 greetd-tui
 tinyramfs
 linux
-efistub-tools
+limine
 neofetch
 vim
 sudo
