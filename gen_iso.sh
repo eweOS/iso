@@ -12,8 +12,8 @@ if [ ! -f "pacman.ewe.conf" ]; then
     sudo pacman -Sy --noconfirm libisoburn squashfs-tools arch-install-scripts e2fsprogs util-linux
     cp /etc/pacman.conf ./pacman.ewe.conf
   fi
-  sed -i "s/Architecture = auto/Architecture = $ISOARCH/g" pacman.ewe.conf
 fi
+sed -i "s/Architecture = .*/Architecture = $ISOARCH/g" pacman.ewe.conf
 
 function crsh(){
   cp $1 ./rootfs/config.sh && chmod +x ./rootfs/config.sh
@@ -33,7 +33,7 @@ mkfs.vfat ./bootfs.img
 sudo mkdir -p ./rootfs/boot
 sudo mount ./bootfs.img ./rootfs/boot
 
-sudo pacstrap -G -M -c -C ./pacman.ewe.conf ./rootfs `cat profiles/$PROFILE/packages.txt | xargs`
+sudo pacstrap -G -M -C ./pacman.ewe.conf ./rootfs `cat profiles/$PROFILE/packages.txt | xargs`
 
 chrconf=`mktemp`
 echo "#!/bin/bash" > $chrconf

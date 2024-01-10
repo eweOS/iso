@@ -24,7 +24,7 @@ fi
 if [ ! -z "`pacman -Qeq | grep ^limine$`" ] && [ "$_bootloader_set"=="0" ]; then
   echo "Found limine"
   mkdir -p /boot/EFI/BOOT
-  cp /usr/share/limine/BOOTX64.EFI /boot/EFI/BOOT/BOOTX64.EFI
+  cp /usr/share/limine/*.EFI /boot/EFI/BOOT/
   limine-mkconfig "rolling (LiveCD)" > /boot/limine.cfg
   _bootloader_set=1
 fi
