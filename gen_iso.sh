@@ -38,6 +38,7 @@ sudo pacstrap -G -M -c -C ./pacman.ewe.conf ./rootfs `cat profiles/$PROFILE/pack
 chrconf=`mktemp`
 echo "#!/bin/bash" > $chrconf
 for configsh in ./commonconfig/*.sh; do
+  echo "echo ''" >> $chrconf
   echo "echo \"#### setting up [`basename $configsh`]\"" >> $chrconf
   cat $configsh >> $chrconf
 done
