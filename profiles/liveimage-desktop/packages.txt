@@ -21,3 +21,4 @@ ttf-unifont
 ttf-dejavu
 dinit-userservd
 connman
+plymouth

@@ -5,7 +5,7 @@ root_opts="lowerdir=/run/initramfs/system,upperdir=/run/initramfs/overlayfs/writ
 live_disk_type=label
 live_disk=EWE_ISO
 live_img_file=/root.sfs
-hooks=mdev,live
+hooks=mdev,plymouth,live
 compress='gzip -9'
 ram=1
 live_ram_opts="size=50%,mode=0755"
