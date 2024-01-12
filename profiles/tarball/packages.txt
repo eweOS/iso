@@ -1,0 +1,6 @@
+base
+linux
+neofetch
+vim
+sudo
+dinit

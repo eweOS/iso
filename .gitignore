@@ -2,5 +2,7 @@ isofs/
 rootfs/
 *.img
 *.iso
+*.tar.xz
+*.tar.gz
 *.sha256
 pacman.ewe.conf
