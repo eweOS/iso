@@ -5,6 +5,7 @@ enable_service greetd
 
 adduser ewe video
 adduser ewe input
+adduser ewe audio
 adduser greeter video
 adduser greeter input
 

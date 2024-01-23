@@ -13,6 +13,16 @@ EOF
 
 _bootloader_set=0
 
+# plymouth
+if [ ! -z "`pacman -Qeq | grep ^plymouth$`" ]; then
+  echo "Found plymouth"
+  # FIXME: use text mode since early KMS is not ready and unable to detect FB
+  cat <<EOF>/etc/plymouth/plymouthd.conf
+[Daemon]
+Theme=tribar
+EOF
+fi
+
 # efistub
 if [ ! -z "`pacman -Qeq | grep ^efistub-tools$`" ] && [ "$_bootloader_set"=="0" ]; then
   echo "Found efistub-tools"
