@@ -1,0 +1,17 @@
+base
+tinyramfs
+linux
+limine
+neofetch
+vim
+sudo
+dinit
+linux-firmware
+arch-install-scripts
+util-linux
+squashfs-tools
+git
+greetd
+connman
+libisoburn
+rsync

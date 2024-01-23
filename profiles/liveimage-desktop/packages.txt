@@ -10,7 +10,7 @@ sudo
 dinit
 linux-firmware
 linux-firmware-amdgpu
-wayfire
+hyprland
 foot
 waybar
 wlogout
@@ -21,4 +21,5 @@ ttf-unifont
 ttf-dejavu
 dinit-userservd
 connman
+swww
 plymouth

@@ -14,7 +14,11 @@ fi
 
 _logtxt "#### bootstrapping system"
 
-sudo pacstrap -G -M -C ./pacman.ewe.conf ./rootfs `cat profiles/$PROFILE/packages.txt | xargs`
+if [ ! -z $USEHOSTPKG ]; then
+  USEHOSTPKG="-c"
+fi
+
+sudo pacstrap -G -M $USEHOSTPKG -C ./pacman.ewe.conf ./rootfs `cat profiles/$PROFILE/packages.txt | xargs`
 
 function concat_config() {
   for configsh in $1; do
