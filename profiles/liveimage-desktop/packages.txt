@@ -23,3 +23,5 @@ dinit-userservd
 connman
 swww
 plymouth
+pipewire
+wireplumber
