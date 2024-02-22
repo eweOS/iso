@@ -20,6 +20,10 @@ fi
 
 sudo pacstrap -G -M $USEHOSTPKG -C ./pacman.ewe.conf ./rootfs `cat profiles/$PROFILE/packages.txt | xargs`
 
+if [ -f profiles/$PROFILE/packages.$TARGET_ARCH.txt ]; then
+  sudo pacstrap -G -M $USEHOSTPKG -C ./pacman.ewe.conf ./rootfs `cat profiles/$PROFILE/packages.$TARGET_ARCH.txt | xargs`
+fi
+
 function concat_config() {
   for configsh in $1; do
     echo "echo \"#### setting up [`basename $configsh`]\"" >> $chrconf

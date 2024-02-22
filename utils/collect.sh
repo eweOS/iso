@@ -27,6 +27,9 @@ fi
 if [[ $PROFILE == tarball* ]]; then
   # wait for arch-chroot to release mountpoint
   sleep 5
+  # failsafe
+  sudo umount ./rootfs/sys/firmware/efi/efivars || true
+  sudo umount ./rootfs/sys || true
   sudo tar cJf eweos-$TARGET_ARCH-$PROFILE.tar.xz -C ./rootfs .
   sha256sum eweos-$TARGET_ARCH-$PROFILE.tar.xz > eweos-$TARGET_ARCH-$PROFILE.tar.xz.sha256
 fi

@@ -24,4 +24,8 @@ connman
 swww
 plymouth
 pipewire
-wireplumber
+rofi
+papirus-icon-theme
+arch-install-scripts
+e2fsprogs
+btop
