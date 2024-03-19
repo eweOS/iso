@@ -3,7 +3,7 @@ greetd
 tinyramfs
 linux
 limine
-neofetch
+fastfetch
 vim
 sudo
 dinit

@@ -4,7 +4,7 @@ greetd-tui
 tinyramfs
 linux
 limine
-neofetch
+fastfetch
 vim
 sudo
 dinit
@@ -17,7 +17,7 @@ waybar
 wlogout
 llvm
 wpa_supplicant
-libseat
+seatd
 ttf-unifont
 ttf-dejavu
 dinit-userservd
@@ -31,3 +31,4 @@ arch-install-scripts
 e2fsprogs
 btop
 sof-firmware
+xdg-user-dirs
