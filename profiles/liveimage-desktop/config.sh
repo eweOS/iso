@@ -31,5 +31,31 @@ cp -r /etc/xdg/waybar /home/ewe/.config/waybar
 sed -i 's/sway/hyprland/' /home/ewe/.config/waybar/config.jsonc
 cat <<EOF >>/home/ewe/.config/hypr/hyprland.conf
 exec-once = waybar & swww init
+exec-once = foot live-intro
 EOF
+cat <<EOF >>/usr/local/bin/live-intro
+#!/bin/bash
+
+cat /etc/motd
+
+cat <<EOE
+Keyboard:
+
+  Super + Q:  open foot terminal
+  Super + R:  open rofi application launcher
+  Super + V:  toggle floating
+  Super + {0-9}:  change workspace
+  Super + {arrow}: change focused window
+
+To install eweOS to your disk, check wiki first:
+
+  https://os-wiki.ewe.moe
+
+EOE
+
+bash
+EOF
+chmod +x /usr/local/bin/live-intro
 chown ewe:ewe -R /home/ewe/.config
+
+

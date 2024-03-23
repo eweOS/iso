@@ -1,0 +1,14 @@
+base
+tinyramfs
+linux
+limine
+fastfetch
+sudo
+dinit
+nginx
+cronie
+fcgiwrap
+connman
+dbus
+greetd
+seatd
