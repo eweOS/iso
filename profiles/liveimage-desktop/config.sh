@@ -31,6 +31,7 @@ cp -r /etc/xdg/waybar /home/ewe/.config/waybar
 sed -i 's/sway/hyprland/' /home/ewe/.config/waybar/config.jsonc
 cat <<EOF >>/home/ewe/.config/hypr/hyprland.conf
 exec-once = waybar & swww init
+exec-once = fcitx5
 exec-once = foot live-intro
 EOF
 cat <<EOF >>/usr/local/bin/live-intro

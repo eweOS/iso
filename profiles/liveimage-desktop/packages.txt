@@ -33,3 +33,6 @@ btop
 sof-firmware
 xdg-user-dirs
 musl-locales
+eweos-keyring
+fcitx5
+fcitx5-gtk
