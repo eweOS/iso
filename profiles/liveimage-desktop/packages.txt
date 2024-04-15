@@ -37,3 +37,4 @@ eweos-keyring
 fcitx5
 fcitx5-gtk
 mimalloc
+bash-completion

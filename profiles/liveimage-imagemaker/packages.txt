@@ -12,6 +12,7 @@ util-linux
 squashfs-tools
 git
 greetd
+seatd
 connman
 libisoburn
 rsync
