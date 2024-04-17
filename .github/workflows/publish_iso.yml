@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [x86_64, aarch64, riscv64]
+        arch: [x86_64, aarch64]
         variant: [liveimage-desktop, liveimage-minimal, tarball]
         include:
           - arch: x86_64
