@@ -28,10 +28,16 @@ jobs:
       - name: Upgrade ubuntu
         run: |
           sudo sed -i 's/jammy/mantic/' /etc/apt/sources.list
-      - name: Build ISO for ${{ matrix.arch }}
+      - name: Install dependencies
         run: |
           sudo apt update
           sudo apt install -y wget dosfstools arch-install-scripts sudo pacman-package-manager xorriso arch-install-scripts squashfs-tools systemd-container
+      - name: Setup pacman config to europe repo
+        run: |
+          wget https://raw.githubusercontent.com/eweOS/packages/pacman/pacman.conf -O pacman.ewe.conf
+          sed -i 's/os-repo.ewe.moe/os-repo-bak.ewe.moe/' pacman.ewe.conf
+      - name: Build ISO for ${{ matrix.arch }}
+        run: |
           ./gen.sh liveimage-minimal ${{ matrix.arch }}
       - name: Upload artifact
         uses: actions/upload-artifact@v4
