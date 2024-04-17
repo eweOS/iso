@@ -25,7 +25,11 @@ jobs:
         with:
           platforms: ${{ matrix.arch }}
       - name: Upgrade ubuntu
-        run: do-release-upgrade -f DistUpgradeViewNonInteractive
+        run: |
+          sudo sed -i 's/jammy/mantic/' /etc/apt/sources.list
+          sudo apt update
+          sudo apt upgrade
+          sudo apt dist-upgrade
       - name: Build ISO for ${{ matrix.arch }}
         run: |
           sudo apt update
