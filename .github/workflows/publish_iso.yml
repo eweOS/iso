@@ -26,8 +26,8 @@ jobs:
           platforms: ${{ matrix.arch }}
       - name: Build ISO for ${{ matrix.arch }}
         run: |
-          apt update
-          apt install -y wget dosfstools arch-install-scripts sudo pacman-package-manager xorriso arch-install-scripts squashfs-tools systemd-container
+          sudo apt update
+          sudo apt install -y wget dosfstools arch-install-scripts sudo pacman-package-manager xorriso arch-install-scripts squashfs-tools systemd-container
           ./gen.sh liveimage-minimal ${{ matrix.arch }}
       - name: Upload artifact
         uses: actions/upload-artifact@v4
