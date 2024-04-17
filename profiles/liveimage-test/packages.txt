@@ -12,3 +12,4 @@ connman
 dbus
 greetd
 seatd
+wget
