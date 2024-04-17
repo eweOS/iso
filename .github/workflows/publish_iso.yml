@@ -11,6 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         arch: [x86_64, aarch64, riscv64]
+        variant: [liveimage-desktop, liveimage-minimal, tarball]
         include:
           - arch: x86_64
             debarch: amd64
@@ -19,6 +20,7 @@ jobs:
           - arch: riscv64
             debarch: riscv64
     runs-on: ubuntu-latest
+    name: Generate ISO for ${{ matrix.variant }} - ${{ matrix.arch }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
@@ -36,12 +38,25 @@ jobs:
         run: |
           wget https://raw.githubusercontent.com/eweOS/packages/pacman/pacman.conf -O pacman.ewe.conf
           sed -i 's/os-repo.ewe.moe/os-repo-bak.ewe.moe/' pacman.ewe.conf
-      - name: Build ISO for ${{ matrix.arch }}
+      - name: Build ISO for ${{ matrix.variant }} - ${{ matrix.arch }}
         run: |
-          ./gen.sh liveimage-minimal ${{ matrix.arch }}
-      - name: Upload artifact
+          ./gen.sh ${{ matrix.variant }} ${{ matrix.arch }}
+      - name: Check build Results
+        id: buildresult
+        run: |
+          ls results/ | grep -v .sha256
+          ls results/ | grep .sha256
+          echo "ART_FILE=$(ls results/ | grep -v .sha256 | head -n 1)" >> $GITHUB_OUTPUT
+          echo "ART_SUM=$(ls results/ | grep .sha256 | head -n 1)" >> $GITHUB_OUTPUT
+      - name: Upload artifact (file)
         uses: actions/upload-artifact@v4
         with:
-          name: eweos-${{ matrix.arch }}
-          path: results
+          name: ${{steps.buildresult.outputs.ART_FILE}}
+          path: results/${{steps.build.outputs.ART_FILE}}
+          compression-level: 0
+      - name: Upload artifact (checksum)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{steps.buildresult.outputs.ART_SUM}}
+          path: results/${{steps.build.outputs.ART_SUM}}
           compression-level: 0
