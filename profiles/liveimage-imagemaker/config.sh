@@ -20,3 +20,17 @@ if [ -f /etc/resolv.conf.bak ]; then
 fi
 
 sed -i 's/os-repo.ewe.moe/repo.nia.dn42/' /etc/pacman.conf
+
+cat <<EOF >/root/build.sh
+#!/bin/bash
+
+PROFILE=${1:-liveimage-desktop}
+
+pushd /build
+for imgprofile in liveimage-desktop liveimage-minimal tarball; do
+  ./gen.sh $PROFILE
+done
+popd
+EOF
+
+chmod +x /root/build.sh

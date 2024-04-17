@@ -2,12 +2,14 @@
 
 _logtxt "#### collecting result"
 
+mkdir -p results
+
 if [[ $PROFILE == liveimage* ]]; then
   sudo mksquashfs ./rootfs ./isofs/root.sfs
   sudo xorriso -as mkisofs \
-    -o eweos-$TARGET_ARCH-$PROFILE.iso \
+    -o results/eweos-$TARGET_ARCH-$PROFILE.iso \
     -J -v -d -N \
-    -x eweos-$TARGET_ARCH-$PROFILE.iso \
+    -x results/eweos-$TARGET_ARCH-$PROFILE.iso \
     -partition_offset 16 \
     -no-pad \
     -hide-rr-moved \
@@ -21,7 +23,7 @@ if [[ $PROFILE == liveimage* ]]; then
     -iso-level 3 \
     -partition_cyl_align all \
     isofs
-  sha256sum eweos-$TARGET_ARCH-$PROFILE.iso > eweos-$TARGET_ARCH-$PROFILE.iso.sha256
+  sha256sum results/eweos-$TARGET_ARCH-$PROFILE.iso > results/eweos-$TARGET_ARCH-$PROFILE.iso.sha256
 fi
 
 if [[ $PROFILE == tarball* ]]; then
@@ -30,6 +32,6 @@ if [[ $PROFILE == tarball* ]]; then
   # failsafe
   sudo umount ./rootfs/sys/firmware/efi/efivars || true
   sudo umount ./rootfs/sys || true
-  sudo tar cJf eweos-$TARGET_ARCH-$PROFILE.tar.xz -C ./rootfs .
-  sha256sum eweos-$TARGET_ARCH-$PROFILE.tar.xz > eweos-$TARGET_ARCH-$PROFILE.tar.xz.sha256
+  sudo tar cJf results/eweos-$TARGET_ARCH-$PROFILE.tar.xz -C ./rootfs .
+  sha256sum results/eweos-$TARGET_ARCH-$PROFILE.tar.xz > results/eweos-$TARGET_ARCH-$PROFILE.tar.xz.sha256
 fi
