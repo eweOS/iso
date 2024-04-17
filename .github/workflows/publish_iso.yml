@@ -20,10 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
-        with:
-          swap-storage: false
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:
@@ -31,9 +27,6 @@ jobs:
       - name: Upgrade ubuntu
         run: |
           sudo sed -i 's/jammy/mantic/' /etc/apt/sources.list
-          sudo apt update
-          sudo apt upgrade
-          sudo apt dist-upgrade
       - name: Build ISO for ${{ matrix.arch }}
         run: |
           sudo apt update
