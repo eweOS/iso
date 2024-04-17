@@ -26,21 +26,11 @@ jobs:
           platforms: ${{ matrix.arch }}
       - name: Build ISO for ${{ matrix.arch }}
         run: |
-          docker run \
-            --rm \
-            -u root \
-            -v $(pwd):/${{ github.workspace }} \
-            -w ${{ github.workspace }} \
-            --platform linux/${{ matrix.debarch }} \
-            docker.io/debian:unstable \
-          bash -c "apt update && apt install -y wget dosfstools arch-install-scripts sudo pacman-package-manager xorriso arch-install-scripts squashfs-tools systemd-container && ./gen.sh"
-      - name: Collect result
-        run: |
-          mkdir -p result
-          cp eweos.iso result/eweos-${{ matrix.arch }}-liveimage.iso
-          sha256sum result/eweos-${{ matrix.arch }}-liveimage.iso > result/eweos-${{ matrix.arch }}-liveimage.iso.sha256
+          apt update
+          apt install -y wget dosfstools arch-install-scripts sudo pacman-package-manager xorriso arch-install-scripts squashfs-tools systemd-container
+          ./gen.sh liveimage-minimal ${{ matrix.arch }}
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: eweos-${{ matrix.arch }}-liveimage
-          path: result
+          name: eweos-${{ matrix.arch }}
+          path: results
