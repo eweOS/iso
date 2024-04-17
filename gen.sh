@@ -10,9 +10,18 @@ if [ ! -d ./profiles/$PROFILE ]; then
   exit 1
 fi
 
+errorhandler () {
+  . utils/cleanup.sh
+  exit 1
+}
+
+trap errorhandler ERR
+
 . utils/log.sh
 . utils/pacman-config.sh
-. utils/function_crsh.sh
 . utils/cleanup.sh
+. utils/function_crsh.sh
 . utils/install.sh
 . utils/collect.sh
+. utils/cleanup.sh
+

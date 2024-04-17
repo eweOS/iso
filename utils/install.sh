@@ -46,5 +46,6 @@ if [ -f "./profiles/$PROFILE/config.sh" ]; then
   cat ./profiles/$PROFILE/config.sh >> $chrconf
 fi
 crsh $chrconf
+sleep 3
 sudo umount ./rootfs/boot || true
 sudo umount ./rootfs/proc || true
