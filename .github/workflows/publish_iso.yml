@@ -8,6 +8,7 @@ on:
 jobs:
   geniso:
     strategy:
+      fail-fast: false
       matrix:
         arch: [x86_64, aarch64, riscv64]
         include:
@@ -37,3 +38,4 @@ jobs:
         with:
           name: eweos-${{ matrix.arch }}
           path: results
+          compression-level: 0
