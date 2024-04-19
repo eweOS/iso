@@ -17,8 +17,6 @@ jobs:
             debarch: amd64
           - arch: aarch64
             debarch: arm64
-          - arch: riscv64
-            debarch: riscv64
     runs-on: ubuntu-latest
     name: Generate ISO for ${{ matrix.variant }} - ${{ matrix.arch }}
     steps:
