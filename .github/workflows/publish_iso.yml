@@ -32,10 +32,6 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y wget dosfstools arch-install-scripts sudo pacman-package-manager xorriso arch-install-scripts squashfs-tools systemd-container
-      - name: Setup pacman config to europe repo
-        run: |
-          wget https://raw.githubusercontent.com/eweOS/packages/pacman/pacman.conf -O pacman.ewe.conf
-          sed -i 's/os-repo.ewe.moe/os-repo-bak.ewe.moe/' pacman.ewe.conf
       - name: Build ISO for ${{ matrix.variant }} - ${{ matrix.arch }}
         run: |
           ./gen.sh ${{ matrix.variant }} ${{ matrix.arch }}
