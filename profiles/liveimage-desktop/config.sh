@@ -41,3 +41,8 @@ cp /.files/live-intro /usr/local/bin/live-intro
 chmod +x /usr/local/bin/live-intro
 
 chown ewe:ewe -R /home/ewe/.config
+
+cp /.files/boot.jpg /boot/bg.jpg
+
+sed -i '1i TERM_WALLPAPER=boot:///bg.jpg' /boot/limine.cfg
+sed -i '1i TERM_MARGIN=0' /boot/limine.cfg
