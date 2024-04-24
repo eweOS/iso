@@ -10,13 +10,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [x86_64, aarch64]
+        arch: [x86_64, aarch64, riscv64]
         variant: [liveimage-desktop, liveimage-minimal, tarball]
+        exclude:
+          - arch: riscv64
+            variant: liveimage-desktop
+          - arch: riscv64
+            variant: liveimage-minimal
         include:
           - arch: x86_64
             debarch: amd64
           - arch: aarch64
             debarch: arm64
+          - arch: riscv64
+            debarch: riscv64
     runs-on: ubuntu-latest
     name: Generate ISO for ${{ matrix.variant }} - ${{ matrix.arch }}
     steps:
