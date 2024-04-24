@@ -47,17 +47,9 @@ jobs:
         run: |
           ls results/ | grep -v .sha256
           ls results/ | grep .sha256
-          echo "ART_FILE=$(ls results/ | grep -v .sha256 | head -n 1)" >> $GITHUB_OUTPUT
-          echo "ART_SUM=$(ls results/ | grep .sha256 | head -n 1)" >> $GITHUB_OUTPUT
-      - name: Upload artifact (file)
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{steps.buildresult.outputs.ART_FILE}}
-          path: results/${{steps.build.outputs.ART_FILE}}
-          compression-level: 0
-      - name: Upload artifact (checksum)
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{steps.buildresult.outputs.ART_SUM}}
-          path: results/${{steps.build.outputs.ART_SUM}}
+          name: eweos-${{ matrix.arch }}-${{ matrix.variant }}
+          path: results/
           compression-level: 0
