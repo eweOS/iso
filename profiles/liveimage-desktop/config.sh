@@ -35,6 +35,7 @@ cat <<EOF >>/home/ewe/.config/hypr/hyprland.conf
 exec-once = waybar & swww init
 exec-once = fcitx5
 exec-once = foot live-intro
+exec-once = activate-linux "Live Mode" "All changes will be lost after reboot"
 EOF
 
 cp /.files/live-intro /usr/local/bin/live-intro

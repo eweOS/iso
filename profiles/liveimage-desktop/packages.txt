@@ -38,3 +38,4 @@ fcitx5
 fcitx5-gtk
 mimalloc
 bash-completion
+activate-linux
