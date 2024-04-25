@@ -1,5 +1,6 @@
 base
 greetd
+seatd
 tinyramfs
 linux
 limine
