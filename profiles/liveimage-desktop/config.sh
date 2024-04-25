@@ -16,8 +16,12 @@ cat <<EOF >/etc/greetd/config.toml
 [terminal]
 vt=1
 
-[default_session]
+[initial_session]
 command = "Hyprland"
+user = "ewe"
+
+[default_session]
+command = "/usr/local/bin/live-intro"
 user = "ewe"
 EOF
 
