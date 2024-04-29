@@ -33,5 +33,7 @@ if [[ $PROFILE == tarball* ]]; then
   sudo umount ./rootfs/sys/firmware/efi/efivars || true
   sudo umount ./rootfs/sys || true
   sudo tar cJf results/eweos-$TARGET_ARCH-$PROFILE.tar.xz -C ./rootfs .
-  sha256sum results/eweos-$TARGET_ARCH-$PROFILE.tar.xz > results/eweos-$TARGET_ARCH-$PROFILE.tar.xz.sha256
+  pushd results
+  sha256sum eweos-$TARGET_ARCH-$PROFILE.tar.xz > eweos-$TARGET_ARCH-$PROFILE.tar.xz.sha256
+  popd
 fi
