@@ -39,3 +39,4 @@ fcitx5-gtk
 mimalloc
 bash-completion
 activate-linux
+tzdata
