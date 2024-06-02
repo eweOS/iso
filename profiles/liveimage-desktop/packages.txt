@@ -11,6 +11,8 @@ dinit
 linux-firmware
 linux-firmware-amdgpu
 linux-firmware-iwlwifi
+linux-firmware-mediatek
+linux-firmware-qcom
 hyprland
 foot
 waybar
