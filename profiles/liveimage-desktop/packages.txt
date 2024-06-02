@@ -20,7 +20,6 @@ wpa_supplicant
 seatd
 ttf-unifont
 ttf-dejavu
-dinit-userservd
 connman
 swww
 plymouth
@@ -40,3 +39,4 @@ mimalloc
 bash-completion
 activate-linux
 tzdata
+turnstile
