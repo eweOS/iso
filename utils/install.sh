@@ -8,8 +8,8 @@ if [[ $PROFILE == liveimage* ]]; then
   mkdir -p isofs
   dd if=/dev/zero of=bootfs.img bs=1M count=48
   mkfs.vfat ./bootfs.img
-  sudo mkdir -p ./rootfs/boot
-  sudo mount ./bootfs.img ./rootfs/boot
+  $RUNAS mkdir -p ./rootfs/boot
+  $RUNAS mount ./bootfs.img ./rootfs/boot
 fi
 
 _logtxt "#### bootstrapping system"
@@ -18,15 +18,15 @@ if [ ! -z $USEHOSTPKG ]; then
   USEHOSTPKG="-c"
 fi
 
-sudo pacstrap -G -M $USEHOSTPKG -C ./pacman.ewe.conf ./rootfs `cat profiles/$PROFILE/packages.txt | xargs`
+$RUNAS pacstrap -G -M $USEHOSTPKG -C ./pacman.ewe.conf ./rootfs `cat profiles/$PROFILE/packages.txt | xargs`
 
 if [ -f profiles/$PROFILE/packages.$TARGET_ARCH.txt ]; then
-  sudo pacstrap -G -M $USEHOSTPKG -C ./pacman.ewe.conf ./rootfs `cat profiles/$PROFILE/packages.$TARGET_ARCH.txt | xargs`
+  $RUNAS pacstrap -G -M $USEHOSTPKG -C ./pacman.ewe.conf ./rootfs `cat profiles/$PROFILE/packages.$TARGET_ARCH.txt | xargs`
 fi
 
 if [ -d profiles/$PROFILE/files ]; then
   _logtxt "#### copying files"
-  sudo cp -r profiles/$PROFILE/files ./rootfs/.files
+  $RUNAS cp -r profiles/$PROFILE/files ./rootfs/.files
 fi
 
 function concat_config() {
@@ -54,9 +54,9 @@ crsh $chrconf
 
 if [ -d ./rootfs/.files ]; then
   _logtxt "#### remove unused files"
-  sudo rm -r ./rootfs/.files
+  $RUNAS rm -r ./rootfs/.files
 fi
 
 sleep 3
-sudo umount ./rootfs/boot || true
-sudo umount ./rootfs/proc || true
+$RUNAS umount ./rootfs/boot || true
+$RUNAS umount ./rootfs/proc || true
