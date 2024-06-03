@@ -1,6 +1,5 @@
 #!/bin/erv sh
 
-
 mkdir -p rootfs
 
 if [[ $PROFILE == liveimage* ]]; then

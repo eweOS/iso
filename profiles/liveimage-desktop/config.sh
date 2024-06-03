@@ -49,5 +49,7 @@ chown ewe:ewe -R /home/ewe/.config
 
 cp /.files/boot.jpg /boot/bg.jpg
 
-sed -i '1i TERM_WALLPAPER=boot:///bg.jpg' /boot/limine.cfg
-sed -i '1i TERM_MARGIN=0' /boot/limine.cfg
+echo 'TERM_WALLPAPER=boot:///bg.jpg' >> /etc/default/limine
+echo 'TERM_MARGIN=0' >> /etc/default/limine
+
+limine-mkconfig -b "rolling (LiveCD)" -o /boot/limine.cfg

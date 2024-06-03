@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RUNAS=${3:sudo}
+RUNAS=${3:-sudo}
 TARGET_ARCH=${2:-x86_64}
 PROFILE=${1:-liveimage-minimal}
 
