@@ -5,10 +5,8 @@ mkdir -p rootfs
 if [[ $PROFILE == liveimage* ]]; then
   _logtxt "#### creating boot partition"
   mkdir -p isofs
-  dd if=/dev/zero of=bootfs.img bs=1M count=48
-  mkfs.vfat ./bootfs.img
   $RUNAS mkdir -p ./rootfs/boot
-  $RUNAS mount ./bootfs.img ./rootfs/boot
+  $RUNAS mount --bind ./isofs ./rootfs/boot
 fi
 
 _logtxt "#### bootstrapping system"
@@ -56,6 +54,7 @@ if [ -d ./rootfs/.files ]; then
   $RUNAS rm -r ./rootfs/.files
 fi
 
+_logtxt "#### wait 3 sec to release mountpoint"
 sleep 3
 $RUNAS umount ./rootfs/boot || true
 $RUNAS umount ./rootfs/proc || true

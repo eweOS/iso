@@ -36,6 +36,11 @@ if [ ! -z "`pacman -Qeq | grep ^limine$`" ] && [ "$_bootloader_set"=="0" ]; then
   mkdir -p /boot/EFI/BOOT
   cp /usr/share/limine/*.EFI /boot/EFI/BOOT/
   limine-mkconfig -b "rolling (LiveCD)" -o /boot/limine.cfg
+  # for hybrid iso
+  if [ -f /usr/share/limine/limine-bios-cd.bin ]; then
+    cp /usr/share/limine/{limine-bios-cd.bin,limine-bios.sys} /boot/
+  fi
+  cp /usr/share/limine/limine-uefi-cd.bin /boot/
   _bootloader_set=1
 fi
 

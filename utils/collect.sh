@@ -6,23 +6,31 @@ mkdir -p results
 
 if [[ $PROFILE == liveimage* ]]; then
   $RUNAS mksquashfs ./rootfs ./isofs/root.sfs
+  if [ -f ./isofs/limine-bios-cd.bin ]; then
+    BIOS_ARG="-b limine-bios-cd.bin"
+  fi
   $RUNAS xorriso -as mkisofs \
     -o results/eweos-$TARGET_ARCH-$PROFILE.iso \
-    -J -v -d -N \
-    -x results/eweos-$TARGET_ARCH-$PROFILE.iso \
-    -partition_offset 16 \
-    -no-pad \
-    -hide-rr-moved \
-    -no-emul-boot \
-    -append_partition 2 0xef bootfs.img \
-    -appended_part_as_gpt \
-    -eltorito-platform efi \
-    -e --interval:appended_partition_2:all:: \
+    $BIOS_ARG \
+    -no-emul-boot -boot-load-size 4 -boot-info-table \
+    --efi-boot limine-uefi-cd.bin \
+    -efi-boot-part --efi-boot-image --protective-msdos-label \
     -V "EWE_ISO" \
     -A "eweOS Live ISO"  \
-    -iso-level 3 \
-    -partition_cyl_align all \
     isofs
+
+  if [ ! -z "$BIOS_ARG" ]; then
+    _logtxt "#### Install BIOS boot for ISO"
+    # limine install bios
+    $RUNAS mkdir -p ./rootfs/results
+    $RUNAS mount --bind results ./rootfs/results
+    $RUNAS arch-chroot rootfs bash -c "limine bios-install /results/eweos-$TARGET_ARCH-$PROFILE.iso"
+    _logtxt "#### wait 3 sec to release mountpoint"
+    sleep 3
+    $RUNAS umount ./rootfs/proc || true
+    $RUNAS umount ./rootfs/results
+  fi
+
   sha256sum results/eweos-$TARGET_ARCH-$PROFILE.iso > results/eweos-$TARGET_ARCH-$PROFILE.iso.sha256
 fi
 
