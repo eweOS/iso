@@ -14,7 +14,7 @@ adduser greeter seat
 
 cat <<EOF >/etc/greetd/config.toml
 [terminal]
-vt=1
+vt=7
 
 [initial_session]
 command = "Hyprland"
