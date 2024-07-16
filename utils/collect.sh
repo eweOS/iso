@@ -5,7 +5,15 @@ _logtxt "#### collecting result"
 mkdir -p results
 
 if [[ $PROFILE == liveimage* ]]; then
-  $RUNAS mksquashfs ./rootfs ./isofs/root.sfs
+  $RUNAS mkdir -p ./isofs/live/sfs
+  $RUNAS mksquashfs ./basefs ./isofs/live/sfs/base.sfs
+  $RUNAS mksquashfs ./livefs ./isofs/live/sfs/live.sfs
+
+  cat <<EOF | sudo tee ./isofs/live/live.list
+base
+live
+EOF
+
   if [ -f ./isofs/limine-bios-cd.bin ]; then
     BIOS_ARG="-b limine-bios-cd.bin"
   fi
@@ -22,13 +30,13 @@ if [[ $PROFILE == liveimage* ]]; then
   if [ ! -z "$BIOS_ARG" ]; then
     _logtxt "#### Install BIOS boot for ISO"
     # limine install bios
-    $RUNAS mkdir -p ./rootfs/results
-    $RUNAS mount --bind results ./rootfs/results
-    $RUNAS arch-chroot rootfs bash -c "limine bios-install /results/eweos-$TARGET_ARCH-$PROFILE.iso"
+    $RUNAS mkdir -p ./basefs/results
+    $RUNAS mount --bind results ./basefs/results
+    $RUNAS arch-chroot basefs bash -c "limine bios-install /results/eweos-$TARGET_ARCH-$PROFILE.iso"
     _logtxt "#### wait 3 sec to release mountpoint"
     sleep 3
-    $RUNAS umount ./rootfs/proc || true
-    $RUNAS umount ./rootfs/results
+    $RUNAS umount ./basefs/proc || true
+    $RUNAS umount ./basefs/results
   fi
 
   sha256sum results/eweos-$TARGET_ARCH-$PROFILE.iso > results/eweos-$TARGET_ARCH-$PROFILE.iso.sha256

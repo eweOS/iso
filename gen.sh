@@ -23,6 +23,7 @@ trap errorhandler ERR
 . utils/cleanup.sh
 . utils/function_crsh.sh
 . utils/install.sh
+. utils/hooks.sh
 . utils/collect.sh
 . utils/cleanup.sh
 
