@@ -1,10 +1,8 @@
 cat <<EOF >/etc/tinyramfs/config
 root=overlay
 root_type=overlay
-root_opts="lowerdir=/run/initramfs/system,upperdir=/run/initramfs/overlayfs/write,workdir=/run/initramfs/overlayfs/work"
 live_disk_type=label
 live_disk=EWE_ISO
-live_img_file=/root.sfs
 hooks=mdev,plymouth,live
 compress='gzip -9'
 ram=1
@@ -21,13 +19,6 @@ if [ ! -z "`pacman -Qeq | grep ^plymouth$`" ]; then
 [Daemon]
 Theme=tribar
 EOF
-fi
-
-# efistub
-if [ ! -z "`pacman -Qeq | grep ^efistub-tools$`" ] && [ "$_bootloader_set"=="0" ]; then
-  echo "Found efistub-tools"
-  genefistub
-  _bootloader_set=1
 fi
 
 # limine bootloader

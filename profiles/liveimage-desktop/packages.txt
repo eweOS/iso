@@ -42,3 +42,4 @@ bash-completion
 activate-linux
 tzdata
 turnstile
+firefox

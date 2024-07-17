@@ -18,11 +18,11 @@ errorhandler () {
 
 trap errorhandler ERR
 
-. utils/log.sh
+. utils/function_def.sh
 . utils/pacman-config.sh
 . utils/cleanup.sh
-. utils/function_crsh.sh
 . utils/install.sh
+. utils/hooks.sh
 . utils/collect.sh
 . utils/cleanup.sh
 
