@@ -1,11 +1,10 @@
 #!/bin/env sh
 
-if [[ $PROFILE == liveimage* ]]; then
-  _logtxt "#### creating boot partition"
-  mkdir -p tmpdir/isofs
-  $RUNAS mkdir -p ./tmpdir/rootfs/boot
-  $RUNAS mount --bind ./tmpdir/isofs ./tmpdir/rootfs/boot
-fi
+mount_overlay live packages base
+
+mkdir -p tmpdir/isofs
+$RUNAS mkdir -p ./tmpdir/rootfs/boot
+$RUNAS mount --bind ./tmpdir/isofs ./tmpdir/rootfs/boot
 
 if [ -d profiles/$PROFILE/files ]; then
   _logtxt "#### copying files"
@@ -40,4 +39,4 @@ if [ -d ./tmpdir/rootfs/.files ]; then
   $RUNAS rm -r ./tmpdir/rootfs/.files
 fi
 
-umount_chroot ./tmpdir/rootfs
+umount_overlay
