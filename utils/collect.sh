@@ -5,7 +5,9 @@ _logtxt "#### collecting result"
 mkdir -p results
 
 if [[ $PROFILE == liveimage* ]]; then
-  $RUNAS mksquashfs ./rootfs ./isofs/root.sfs
+  mkdir -p ./isofs/live/sfs/
+  $RUNAS mksquashfs ./rootfs ./isofs/live/sfs/root.sfs
+  echo "root" | $RUNAS tee ./isofs/live/live.list
   if [ -f ./isofs/limine-bios-cd.bin ]; then
     BIOS_ARG="-b limine-bios-cd.bin"
   fi
