@@ -18,3 +18,30 @@ function umount_chroot(){
   $RUNAS umount $1/sys/firmware/efi/efivars || true
   $RUNAS umount $1/sys || true
 }
+
+function mount_overlay(){
+# mount overlay only for liveimage, use rootfs as usual for other images
+if [[ $PROFILE == liveimage* ]]; then
+  mkdir -p ./tmpdir/overlay_workdir
+  upperlayer=$1
+  mkdir -p ./tmpdir/layers/$upperlayer ./tmpdir/rootfs
+  shift 1
+  if [ $# -eq 0 ]; then
+    $RUNAS mount --bind ./tmpdir/layers/$upperlayer ./tmpdir/rootfs
+  else
+    LOWERLAYERS=""
+    for layer in "$@"
+    do
+      mkdir -p ./tmpdir/layers/$layer
+      LOWERLAYERS+="$PWD/tmpdir/layers/${layer}:"
+    done
+    $RUNAS mount -t overlay overlay -o lowerdir=${LOWERLAYERS%:},upperdir=$PWD/tmpdir/layers/$upperlayer,workdir=$PWD/tmpdir/overlay_workdir ./tmpdir/rootfs
+  fi
+fi
+}
+
+function umount_overlay(){
+  $RUNAS sync
+  umount_chroot ./tmpdir/rootfs
+  $RUNAS umount ./tmpdir/rootfs || true
+}
