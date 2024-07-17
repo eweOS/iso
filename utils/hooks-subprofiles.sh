@@ -1,0 +1,32 @@
+#!/bin/env sh
+
+for subprofile in $(ls profiles/$PROFILE/subprofiles); do
+
+mount_overlay live-$subprofile live packages base
+
+mkdir -p tmpdir/isofs/live
+
+cat <<EOF | $RUNAS tee ./tmpdir/isofs/live/$subprofile.list
+base
+packages
+live
+live-$subprofile
+EOF
+
+if [ -d profiles/$PROFILE/subprofiles/$subprofile/files ]; then
+  _logtxt "#### copying files"
+  $RUNAS cp -r profiles/$PROFILE/subprofiles/$subprofile/files ./tmpdir/rootfs/.files
+fi
+
+if [ -f "./profiles/$PROFILE/subprofiles/$subprofile/config.sh" ]; then
+  crsh ./profiles/$PROFILE/subprofiles/$subprofile/config.sh
+fi
+
+if [ -d ./tmpdir/rootfs/.files ]; then
+  _logtxt "#### remove unused files"
+  $RUNAS rm -r ./tmpdir/rootfs/.files
+fi
+
+umount_overlay
+
+done
