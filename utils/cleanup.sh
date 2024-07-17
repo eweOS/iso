@@ -2,6 +2,5 @@
 
 _logtxt "#### cleaning up env"
 
-$RUNAS rm -r rootfs || true
-$RUNAS rm -r isofs || true
+$RUNAS rm -r tmpdir || true
 

@@ -1,5 +1,4 @@
-isofs/
-rootfs/
+tmpdir/
 *.img
 *.iso
 *.tar.xz
