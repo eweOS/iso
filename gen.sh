@@ -23,6 +23,10 @@ trap errorhandler ERR
 . utils/cleanup.sh
 . utils/install.sh
 . utils/hooks.sh
+# layered subprofiles only in liveimages
+if [[ $PROFILE == liveimage* ]] && [ -d profiles/$PROFILE/subprofiles ]; then
+  . utils/hooks-subprofiles.sh
+fi
 . utils/collect.sh
 . utils/cleanup.sh
 
