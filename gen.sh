@@ -27,6 +27,9 @@ trap errorhandler ERR
 if [[ $PROFILE == liveimage* ]] && [ -d profiles/$PROFILE/subprofiles ]; then
   . utils/hooks-subprofiles.sh
 fi
-. utils/collect.sh
+case "$PROFILE" in
+  tarball*)    . utils/collect_tarball.sh ;;
+  liveimage*)  . utils/collect_liveimage.sh ;;
+esac
 . utils/cleanup.sh
 
