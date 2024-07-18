@@ -24,7 +24,7 @@ jobs:
             debarch: arm64
           - arch: riscv64
             debarch: riscv64
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: Generate ISO for ${{ matrix.variant }} - ${{ matrix.arch }}
     steps:
       - uses: actions/checkout@v4
@@ -32,9 +32,7 @@ jobs:
         uses: docker/setup-qemu-action@v3
         with:
           platforms: ${{ matrix.arch }}
-      - name: Upgrade ubuntu
-        run: |
-          sudo sed -i 's/jammy/mantic/' /etc/apt/sources.list
+          image: 'tonistiigi/binfmt:qemu-v8.1.5'
       - name: Install dependencies
         run: |
           sudo apt update
