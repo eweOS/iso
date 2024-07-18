@@ -26,6 +26,7 @@ trap errorhandler ERR
 # layered subprofiles only in liveimages
 if [[ $PROFILE == liveimage* ]] && [ -d profiles/$PROFILE/subprofiles ]; then
   . utils/hooks-subprofiles.sh
+  . utils/limine_menu.sh
 fi
 case "$PROFILE" in
   tarball*)    . utils/collect_tarball.sh ;;

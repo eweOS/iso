@@ -39,4 +39,6 @@ else
   DEFAULT_SUBPROFILE=`ls profiles/$PROFILE/subprofiles | head -n 1`
 fi
 
-cp ./tmpdir/isofs/live/${DEFAULT_SUBPROFILE}.list ./tmpdir/isofs/live/live.list
+if [ -f ./tmpdir/isofs/live/${DEFAULT_SUBPROFILE}.list ]; then
+  cp ./tmpdir/isofs/live/${DEFAULT_SUBPROFILE}.list ./tmpdir/isofs/live/live.list
+fi
