@@ -16,6 +16,7 @@
   - `subprofiles/{subprofile}/`: (Optional) subprofile directory
     - `config.sh`: (Optional) config script in chroot
     - `files/`: (Optional) files to be used in subprofile level `config.sh`, installed to `/.files/` before `config.sh`
+    - `title.txt`: (Optional) title to be used in limine menu, which defaults to be subprofile name
   - `default_subprofile.txt`: (Optional) default subprofile
 - `config`:
   - `common`: common config script in chroot
@@ -49,6 +50,8 @@
   - copy files to be used in subprofile config hooks (if any)
   - executes subprofile config hooks (in `profiles/{profile}/subprofiles/{subprofile}/config.sh`)
   - clean used files by config hooks
+- `utils/limine_menu.sh`: (if liveimage and any subprofile)
+  - generate and override limine config
 - `utils/collect_tarball.sh`: compress tarball and make checksum (if tarball)
 - `utils/collect_liveimage.sh`: (if liveimage)
   - make squashfs for each layer
