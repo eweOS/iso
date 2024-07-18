@@ -43,3 +43,5 @@ activate-linux
 tzdata
 turnstile
 firefox
+yaft
+idump
