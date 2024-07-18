@@ -49,6 +49,8 @@
   - copy files to be used in subprofile config hooks (if any)
   - executes subprofile config hooks (in `profiles/{profile}/subprofiles/{subprofile}/config.sh`)
   - clean used files by config hooks
+- `utils/limine_menu.sh`: (if liveimage and any subprofile)
+  - generate and override limine config
 - `utils/collect_tarball.sh`: compress tarball and make checksum (if tarball)
 - `utils/collect_liveimage.sh`: (if liveimage)
   - make squashfs for each layer
