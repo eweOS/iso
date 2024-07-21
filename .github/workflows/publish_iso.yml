@@ -53,3 +53,29 @@ jobs:
           name: eweos-${{ matrix.arch }}-${{ matrix.variant }}
           path: results/
           compression-level: 0
+      - name: Install s3cmd
+        if: github.event_name != 'pull_request'
+        run: sudo apt -y install s3cmd
+      - name: Create s3cmd config
+        if: github.event_name != 'pull_request'
+        run: |
+          echo "[default]" >> .s3-cf.conf
+          echo "access_key = ${{ secrets.CF_IMG_S3_ACCESS_KEY }}" >> .s3-cf.conf
+          echo "secret_key = ${{ secrets.CF_IMG_S3_SECRET_KEY }}" >> .s3-cf.conf
+          echo "host_base = ${{ secrets.CF_IMG_S3_HOST }}" >> .s3-cf.conf
+          echo "host_bucket = ${{ secrets.CF_IMG_S3_HOST_BUCKET }}" >> .s3-cf.conf
+          echo "bucket_location = auto" >> .s3-cf.conf
+          echo "enable_multipart = False" >> .s3-cf.conf
+          echo "[default]" >> .s3-orc.conf
+          echo "access_key = ${{ secrets.ORC_IMG_S3_ACCESS_KEY }}" >> .s3-orc.conf
+          echo "secret_key = ${{ secrets.ORC_IMG_S3_SECRET_KEY }}" >> .s3-orc.conf
+          echo "host_base = ${{ secrets.ORC_IMG_S3_HOST }}" >> .s3-orc.conf
+          echo "host_bucket = ${{ secrets.ORC_IMG_S3_HOST_BUCKET }}" >> .s3-orc.conf
+          echo "bucket_location = auto" >> .s3-orc.conf
+          echo "enable_multipart = False" >> .s3-orc.conf
+      - name: Upload to Object Storage
+        if: github.event_name != 'pull_request'
+        run: |
+          s3cmd -c ./.s3-orc.conf put results/* s3://eweos-repo/eweos-images/
+          s3cmd -c ./.s3-cf.conf put results/* s3://ewe/eweos-images/
+
