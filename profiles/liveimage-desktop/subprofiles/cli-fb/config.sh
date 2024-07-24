@@ -5,7 +5,7 @@ cat <<EOF >/etc/greetd/config.toml
 vt=7
 
 [default_session]
-command = "yaft_wall /live/bg.jpg"
+command = "yaft_wall /live/bg.jpg /usr/local/bin/live-intro"
 user = "ewe"
 EOF
 
