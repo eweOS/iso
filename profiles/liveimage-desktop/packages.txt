@@ -45,3 +45,6 @@ turnstile
 firefox
 yaft
 idump
+testing/jade
+cage
+testing/jade-gui

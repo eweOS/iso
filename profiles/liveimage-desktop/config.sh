@@ -21,3 +21,5 @@ echo 'TERM_WALLPAPER=boot:///bg.jpg' >> /etc/default/limine
 echo 'TERM_MARGIN=0' >> /etc/default/limine
 
 limine-mkconfig -b "rolling (LiveCD)" -o /boot/limine.cfg
+
+echo 'GSK_RENDERER=cairo' >> /etc/environment
