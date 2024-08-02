@@ -1,13 +1,9 @@
-base
 greetd
 seatd
-tinyramfs
 linux
-limine
 fastfetch
 vim
 sudo
-dinit
 linux-firmware
 linux-firmware-amdgpu
 linux-firmware-iwlwifi

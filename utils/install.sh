@@ -6,7 +6,7 @@ _logtxt "#### bootstrapping base system"
 
 mount_overlay base
 
-$RUNAS pacstrap -G -M -c -C ./pacman.ewe.conf ./tmpdir/rootfs base
+$RUNAS pacstrap -G -M -c -C ./pacman.ewe.conf ./tmpdir/rootfs base-baremetal
 
 umount_overlay
 

@@ -1,4 +1,3 @@
 base
 vim
 sudo
-dinit
