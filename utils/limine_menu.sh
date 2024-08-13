@@ -73,7 +73,7 @@ for subprofile in $(ls profiles/$PROFILE/subprofiles); do
   else
     subprofile_name=$subprofile
   fi
-  limine_menu_render_subprofile_adv "$subprofile_name" "recovery mode" $subprofile "nosplash -- single"
+  limine_menu_render_subprofile_adv "$subprofile_name" "low memory mode" $subprofile "ram=0 quiet splash"
 done
 
 cat <<EOF | $RUNAS tee -a $CFGOUT
