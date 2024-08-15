@@ -14,6 +14,7 @@
   - `packages.{target_arch}.txt`: (Optional) packages to be installed for a specific arch
   - `files/`: (Optional) files to be used in global `config.sh`, installed to `/.files/` before `config.sh`
   - `subprofiles/{subprofile}/`: (Optional) subprofile directory
+    - `packages.txt`: (Optional) packages to be installed (after global config scripts)
     - `config.sh`: (Optional) config script in chroot
     - `files/`: (Optional) files to be used in subprofile level `config.sh`, installed to `/.files/` before `config.sh`
     - `title.txt`: (Optional) title to be used in limine menu, which defaults to be subprofile name

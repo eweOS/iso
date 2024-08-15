@@ -35,9 +35,6 @@ fcitx5
 fcitx5-gtk
 mimalloc
 bash-completion
-activate-linux
 tzdata
 turnstile
 firefox
-yaft
-idump

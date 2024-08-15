@@ -13,6 +13,10 @@ live
 live-$subprofile
 EOF
 
+if [ -f profiles/$PROFILE/subprofiles/$subprofile/packages.txt ]; then
+  $RUNAS pacstrap -G -M -c -C ./pacman.ewe.conf ./tmpdir/rootfs `cat profiles/$PROFILE/subprofiles/$subprofile/packages.txt | xargs`
+fi
+
 if [ -d profiles/$PROFILE/subprofiles/$subprofile/files ]; then
   _logtxt "#### copying files"
   $RUNAS cp -r profiles/$PROFILE/subprofiles/$subprofile/files ./tmpdir/rootfs/.files
