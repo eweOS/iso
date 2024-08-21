@@ -17,8 +17,6 @@ jobs:
         exclude:
           - arch: riscv64
             variant: liveimage-desktop
-          - arch: riscv64
-            variant: liveimage-standard
         include:
           - arch: x86_64
             debarch: amd64
