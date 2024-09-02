@@ -21,7 +21,7 @@ fi
 
 mkdir -p /boot/EFI/BOOT
 cp /usr/share/limine/*.EFI /boot/EFI/BOOT/
-limine-mkconfig -b "rolling (LiveCD)" -o /boot/limine.cfg
+limine-mkconfig -b "rolling (LiveCD)" -o /boot/limine.conf
 # for hybrid iso
 if [ -f /usr/share/limine/limine-bios-cd.bin ]; then
   cp /usr/share/limine/{limine-bios-cd.bin,limine-bios.sys} /boot/

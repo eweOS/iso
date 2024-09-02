@@ -1,7 +1,7 @@
 #!/bin/bash
 
 count=`ls profiles/$PROFILE/subprofiles | wc -l`
-CFGOUT=./tmpdir/isofs/limine.cfg
+CFGOUT=./tmpdir/isofs/limine.conf
 sudo rm $CFGOUT || true
 # TODO: multiple kernel
 kernel_file=`ls ./tmpdir/isofs/ | grep vmlinuz- | head -n 1`
@@ -11,11 +11,11 @@ function limine_menu_render_subprofile() {
   title="$1"
   subprofile_id="$2"
   cat <<EOF | $RUNAS tee -a $CFGOUT
-:eweOS $TARGET_ARCH ($title)
-    PROTOCOL=linux
-    KERNEL_PATH=boot:///${kernel_file}
-    KERNEL_CMDLINE=live=${subprofile_id} quiet splash
-    MODULE_PATH=boot:///${initrd_file}
+/eweOS $TARGET_ARCH ($title)
+    protocol: linux
+    kernel_path: boot():/${kernel_file}
+    cmdline: live=${subprofile_id} quiet splash
+    module_path: boot():/${initrd_file}
 EOF
 }
 
@@ -25,12 +25,11 @@ function limine_menu_render_subprofile_adv() {
   subprofile_id="$3"
   cmdline="$4"
   cat <<EOF | $RUNAS tee -a $CFGOUT
-    ::eweOS $TARGET_ARCH ($title, $subtitle)
-        PROTOCOL=linux
-        KERNEL_PATH=boot:///${kernel_file}
-        KERNEL_CMDLINE=live=${subprofile_id} $cmdline
-        MODULE_PATH=boot:///${initrd_file}
-
+//eweOS $TARGET_ARCH ($title, $subtitle)
+    protocol: linux
+    kernel_path: boot():/${kernel_file}
+    cmdline: live=${subprofile_id} $cmdline
+    module_path: boot():/${initrd_file}
 EOF
 }
 
@@ -38,9 +37,8 @@ EOF
 if [ "$count" -gt "1" ]; then
 
 cat <<EOF | $RUNAS tee -a $CFGOUT
-TERM_WALLPAPER=boot:///bg.jpg
-TERM_MARGIN=0
-
+wallpaper: boot():/bg.jpg
+term_margin: 0
 EOF
 
 if [ -f "profiles/$PROFILE/subprofiles/$DEFAULT_SUBPROFILE/title.txt" ]; then
@@ -77,9 +75,8 @@ for subprofile in $(ls profiles/$PROFILE/subprofiles); do
 done
 
 cat <<EOF | $RUNAS tee -a $CFGOUT
-:Resume Default Boot Sequence
-    PROTOCOL=chainload_next
-
+/Resume Default Boot Sequence
+    protocol: chainload_next
 EOF
 
 fi
