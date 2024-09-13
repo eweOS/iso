@@ -61,7 +61,7 @@ for subprofile in $(ls profiles/$PROFILE/subprofiles); do
 done
 
 cat <<EOF | $RUNAS tee -a $CFGOUT
-:eweOS $TARGET_ARCH [Advanced Boot Options]
+/eweOS $TARGET_ARCH [Advanced Boot Options]
 
 EOF
 
