@@ -1,4 +1,5 @@
 tmpdir/
+cache/
 *.img
 *.iso
 *.tar.xz
