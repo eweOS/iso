@@ -2,6 +2,7 @@
 
 enable_service connman
 enable_service greetd
+enable_service seatd
 enable_user_service pipewire-pulse
 
 adduser ewe video
