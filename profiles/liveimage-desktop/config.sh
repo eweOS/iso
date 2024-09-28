@@ -4,6 +4,7 @@ enable_service connman
 enable_service greetd
 enable_service seatd
 enable_user_service pipewire-pulse
+enable_user_service wireplumber
 
 adduser ewe video
 adduser ewe input
