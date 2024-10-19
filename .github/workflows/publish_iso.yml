@@ -34,15 +34,10 @@ jobs:
     name: Generate ISO for ${{ matrix.variant }} - ${{ matrix.arch }}
     steps:
       - uses: actions/checkout@v4
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-        with:
-          platforms: ${{ matrix.arch }}
-          image: 'tonistiigi/binfmt:qemu-v8.1.5'
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y wget dosfstools arch-install-scripts sudo pacman-package-manager xorriso arch-install-scripts squashfs-tools systemd-container
+          sudo apt install -y wget dosfstools arch-install-scripts sudo pacman-package-manager xorriso arch-install-scripts squashfs-tools systemd-container qemu-user-static
       - name: Build ISO for ${{ matrix.variant }} - ${{ matrix.arch }}
         run: |
           ./gen.sh ${{ matrix.variant }} ${{ matrix.arch }}
