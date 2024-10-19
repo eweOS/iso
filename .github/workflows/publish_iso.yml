@@ -12,11 +12,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [x86_64, aarch64, riscv64]
+        arch: [x86_64, aarch64, riscv64, loongarch64]
         variant: [liveimage-desktop, liveimage-standard, tarball]
         exclude:
           - arch: riscv64
             variant: liveimage-desktop
+          - arch: loongarch64
+            variant: liveimage-desktop
+          - arch: loongarch64
+            variant: liveimage-standard
         include:
           - arch: x86_64
             debarch: amd64
@@ -24,6 +28,8 @@ jobs:
             debarch: arm64
           - arch: riscv64
             debarch: riscv64
+          - arch: loongarch64
+            debarch: loong64
     runs-on: ubuntu-24.04
     name: Generate ISO for ${{ matrix.variant }} - ${{ matrix.arch }}
     steps:
