@@ -6,7 +6,7 @@ mkdir -p results
 
 mkdir -p ./tmpdir/isofs/live/sfs/
 for sfsdir in $(ls ./tmpdir/layers/); do
-  $RUNAS mksquashfs ./tmpdir/layers/$sfsdir ./tmpdir/isofs/live/sfs/$sfsdir.sfs
+  $RUNAS mksquashfs ./tmpdir/layers/$sfsdir ./tmpdir/isofs/live/sfs/$sfsdir.sfs -comp zstd
 done
 
 # fallback if no default live option
