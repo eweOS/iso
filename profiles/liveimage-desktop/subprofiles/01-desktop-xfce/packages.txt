@@ -1,0 +1,13 @@
+jade-gui
+activate-linux
+pipewire
+papirus-icon-theme
+sof-firmware
+fcitx5
+fcitx5-gtk
+xfce4
+xfce4-goodies
+labwc
+gvfs
+swayidle
+firefox
