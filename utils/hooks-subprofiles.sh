@@ -2,16 +2,18 @@
 
 for subprofile in $(ls profiles/$PROFILE/subprofiles); do
 
-mount_overlay live-$subprofile live packages base
+MOUNT_OVERLAY=(live packages base)
+
+if [ -f profiles/$PROFILE/subprofiles/$subprofile/prev_profiles.txt ]; then
+  MOUNT_OVERLAY=(`cat profiles/$PROFILE/subprofiles/$subprofile/prev_profiles.txt | xargs` "${MOUNT_OVERLAY[@]}")
+fi
+
+MOUNT_OVERLAY=($subprofile "${MOUNT_OVERLAY[@]}")
+
+mount_overlay "${MOUNT_OVERLAY[@]}"
 
 mkdir -p tmpdir/isofs/live
-
-cat <<EOF | $RUNAS tee ./tmpdir/isofs/live/$subprofile.list
-base
-packages
-live
-live-$subprofile
-EOF
+printf '%s\n' "${MOUNT_OVERLAY[@]}" | tac | $RUNAS tee ./tmpdir/isofs/live/$subprofile.list
 
 if [ -f profiles/$PROFILE/subprofiles/$subprofile/packages.txt ]; then
   $RUNAS pacstrap -G -M -c -C ./pacman.ewe.conf ./tmpdir/rootfs `cat profiles/$PROFILE/subprofiles/$subprofile/packages.txt | xargs`
@@ -35,13 +37,8 @@ umount_overlay
 
 done
 
-# read default subprofile from dir
-if [ -f ./profiles/$PROFILE/default_subprofile.txt ]; then
-  DEFAULT_SUBPROFILE=`cat ./profiles/$PROFILE/default_subprofile.txt`
-# else just select first as default
-else
-  DEFAULT_SUBPROFILE=`ls profiles/$PROFILE/subprofiles | head -n 1`
-fi
+# fallback option for "live"
+DEFAULT_SUBPROFILE=`ls profiles/$PROFILE/subprofiles | head -n 1`
 
 if [ -f ./tmpdir/isofs/live/${DEFAULT_SUBPROFILE}.list ]; then
   cp ./tmpdir/isofs/live/${DEFAULT_SUBPROFILE}.list ./tmpdir/isofs/live/live.list

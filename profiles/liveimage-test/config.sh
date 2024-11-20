@@ -1,10 +1,8 @@
 #!/bin/bash
 
-enable_service connman
-enable_service nginx
-enable_service fcgiwrap
-enable_service cron
-enable_service greetd
+for srv in connman nginx fcgiwrap cron greetd; do
+  dinitctl -s -o enable $srv
+done
 
 cp /etc/resolv.conf /etc/resolv.conf.bak
 echo "nameserver 8.8.8.8" > /etc/resolv.conf

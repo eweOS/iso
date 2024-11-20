@@ -1,18 +1,16 @@
 #!/bin/bash
 
-enable_service connman
-enable_service greetd
-enable_service seatd
-enable_user_service pipewire-pulse
-enable_user_service wireplumber
+for srv in networkmanager greetd seatd; do
+  dinitctl -s -o enable $srv
+done
 
-adduser ewe video
-adduser ewe input
-adduser ewe audio
-adduser ewe seat
-adduser greeter video
-adduser greeter input
-adduser greeter seat
+for srv in pipewire-pulse wireplumber; do
+  ln -s ../$srv /usr/lib/dinit.d/user/boot.d
+done
+
+for grp in video input audio seat; do
+  adduser ewe $grp
+done
 
 cp /.files/live-intro /usr/local/bin/live-intro
 chmod +x /usr/local/bin/live-intro
