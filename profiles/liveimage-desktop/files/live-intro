@@ -2,20 +2,6 @@
 
 cat /etc/motd
 
-if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
-cat <<EOF
-Keyboard:
-
-  Super + Q:  open foot terminal
-  Super + R:  open rofi application launcher
-  Super + V:  toggle floating
-  Super + {0-9}:  change workspace
-  Super + {arrow}: change focused window
-  Super + C:  close current window
-
-EOF
-fi
-
 cat <<EOF
 
 To install eweOS to your disk, check wiki first:

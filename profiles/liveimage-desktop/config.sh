@@ -1,6 +1,6 @@
 #!/bin/bash
 
-enable_service connman
+enable_service networkmanager
 enable_service greetd
 enable_service seatd
 enable_user_service pipewire-pulse
