@@ -5,10 +5,5 @@ papirus-icon-theme
 sof-firmware
 fcitx5
 fcitx5-gtk
-lxqt
-lxqt-wayland-session
-labwc
-libstatgrab
 gvfs
-swayidle
 firefox

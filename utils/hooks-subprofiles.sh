@@ -2,16 +2,18 @@
 
 for subprofile in $(ls profiles/$PROFILE/subprofiles); do
 
-mount_overlay live-$subprofile live packages base
+MOUNT_OVERLAY=(live packages base)
+
+if [ -f profiles/$PROFILE/subprofiles/$subprofile/prev_profiles.txt ]; then
+  MOUNT_OVERLAY=(`cat profiles/$PROFILE/subprofiles/$subprofile/prev_profiles.txt | xargs` "${MOUNT_OVERLAY[@]}")
+fi
+
+MOUNT_OVERLAY=($subprofile "${MOUNT_OVERLAY[@]}")
+
+mount_overlay "${MOUNT_OVERLAY[@]}"
 
 mkdir -p tmpdir/isofs/live
-
-cat <<EOF | $RUNAS tee ./tmpdir/isofs/live/$subprofile.list
-base
-packages
-live
-live-$subprofile
-EOF
+printf '%s\n' "${MOUNT_OVERLAY[@]}" | tac | $RUNAS tee ./tmpdir/isofs/live/$subprofile.list
 
 if [ -f profiles/$PROFILE/subprofiles/$subprofile/packages.txt ]; then
   $RUNAS pacstrap -G -M -c -C ./pacman.ewe.conf ./tmpdir/rootfs `cat profiles/$PROFILE/subprofiles/$subprofile/packages.txt | xargs`
