@@ -41,23 +41,14 @@ wallpaper: boot():/bg.jpg
 term_margin: 0
 EOF
 
-if [ -f "profiles/$PROFILE/subprofiles/$DEFAULT_SUBPROFILE/title.txt" ]; then
-  DEFAULT_SUBPROFILE_NAME=`cat profiles/$PROFILE/subprofiles/$DEFAULT_SUBPROFILE/title.txt`
-else
-  DEFAULT_SUBPROFILE_NAME=$DEFAULT_SUBPROFILE
-fi
-
-limine_menu_render_subprofile "$DEFAULT_SUBPROFILE_NAME" $DEFAULT_SUBPROFILE
-
 for subprofile in $(ls profiles/$PROFILE/subprofiles); do
-  if [ "$subprofile" != "$DEFAULT_SUBPROFILE" ]; then
-    if [ -f "profiles/$PROFILE/subprofiles/$subprofile/title.txt" ]; then
-      subprofile_name=`cat profiles/$PROFILE/subprofiles/$subprofile/title.txt`
-    else
-      subprofile_name=$subprofile
-    fi
-    limine_menu_render_subprofile "$subprofile_name" $subprofile
+  if [ -f "profiles/$PROFILE/subprofiles/$subprofile/title.txt" ]; then
+    subprofile_name=`cat profiles/$PROFILE/subprofiles/$subprofile/title.txt`
+  else
+    subprofile_name=$subprofile
   fi
+  [ "$subprofile_name" == "null" ] || \
+    limine_menu_render_subprofile "$subprofile_name" $subprofile
 done
 
 cat <<EOF | $RUNAS tee -a $CFGOUT
@@ -71,7 +62,8 @@ for subprofile in $(ls profiles/$PROFILE/subprofiles); do
   else
     subprofile_name=$subprofile
   fi
-  limine_menu_render_subprofile_adv "$subprofile_name" "low memory mode" $subprofile "ram=0 quiet splash"
+  [ "$subprofile_name" == "null" ] || \
+    limine_menu_render_subprofile_adv "$subprofile_name" "low memory mode" $subprofile "ram=0 quiet splash"
 done
 
 cat <<EOF | $RUNAS tee -a $CFGOUT

@@ -17,8 +17,8 @@
     - `packages.txt`: (Optional) packages to be installed (after global config scripts)
     - `config.sh`: (Optional) config script in chroot
     - `files/`: (Optional) files to be used in subprofile level `config.sh`, installed to `/.files/` before `config.sh`
-    - `title.txt`: (Optional) title to be used in limine menu, which defaults to be subprofile name
-  - `default_subprofile.txt`: (Optional) default subprofile
+    - `title.txt`: (Optional) title to be used in limine menu, which defaults to be subprofile name, set to null to hide this layer
+    - `prev_profiles.txt`: (Optional) Previous subprofiles overlayed
 - `config`:
   - `common`: common config script in chroot
     - `common/function_enable_service.sh`: functions to be used by config scripts

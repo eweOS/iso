@@ -1,0 +1,9 @@
+jade-gui
+activate-linux
+pipewire
+papirus-icon-theme
+sof-firmware
+fcitx5
+fcitx5-gtk
+gvfs
+firefox

@@ -1,0 +1,5 @@
+lxqt
+lxqt-wayland-session
+labwc
+libstatgrab
+swayidle
