@@ -19,8 +19,6 @@ jobs:
             variant: liveimage-desktop-xfce
           - arch: loongarch64
             variant: liveimage-desktop-xfce
-          - arch: loongarch64
-            variant: liveimage-standard
         include:
           - arch: x86_64
             debarch: amd64
