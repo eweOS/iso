@@ -19,6 +19,7 @@ sudo -u ewe cat <<EOF >> /home/ewe/.config/labwc/autostart
 activate-linux "Live Mode" "All changes will be lost after reboot" &
 xfce4-terminal -e /usr/local/bin/live-intro &
 xfconf-query -c xsettings -p /Net/IconThemeName -s Papirus &
+for f in ~/Desktop/*.desktop; do chmod +x "\$f"; gio set -t string "\$f" metadata::xfce-exe-checksum "\$(sha256sum "\$f" | awk '{print \$1}')"; done
 EOF
 
 sudo -u ewe cat <<EOF >> /home/ewe/.config/labwc/environment
@@ -32,3 +33,5 @@ sudo -u ewe mkdir -p /home/ewe/Desktop
 for dfile in xfce4-terminal gparted; do
   sudo -u ewe cp /usr/share/applications/$dfile.desktop /home/ewe/Desktop/
 done
+
+sudo -u ewe sed -i 's@Exec=/@Exec=sudo -E /@' /home/ewe/Desktop/$dfile.desktop

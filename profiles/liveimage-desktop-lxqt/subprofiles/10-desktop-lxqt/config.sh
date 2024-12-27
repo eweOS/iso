@@ -31,3 +31,5 @@ sudo -u ewe mkdir -p /home/ewe/Desktop
 for dfile in qterminal gparted; do
   sudo -u ewe cp /usr/share/applications/$dfile.desktop /home/ewe/Desktop/
 done
+
+sudo -u ewe sed -i 's@Exec=/@Exec=sudo -E /@' /home/ewe/Desktop/$dfile.desktop
