@@ -17,8 +17,6 @@ jobs:
         exclude:
           - arch: riscv64
             variant: liveimage-desktop-xfce
-          - arch: loongarch64
-            variant: liveimage-desktop-xfce
         include:
           - arch: x86_64
             debarch: amd64
