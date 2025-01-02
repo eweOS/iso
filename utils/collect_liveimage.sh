@@ -42,4 +42,6 @@ if [ ! -z "$BIOS_ARG" ]; then
   umount_overlay
 fi
 
-sha256sum results/eweos-$TARGET_ARCH-$PROFILE.iso > results/eweos-$TARGET_ARCH-$PROFILE.iso.sha256
+pushd results
+sha256sum eweos-$TARGET_ARCH-$PROFILE.iso > eweos-$TARGET_ARCH-$PROFILE.iso.sha256
+popd
