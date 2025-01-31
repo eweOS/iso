@@ -11,3 +11,4 @@ linux-firmware-mediatek
 linux-firmware-qcom
 connman
 wpa_supplicant
+libudev
