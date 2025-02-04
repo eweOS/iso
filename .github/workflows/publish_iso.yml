@@ -20,13 +20,17 @@ jobs:
         include:
           - arch: x86_64
             debarch: amd64
+            runson: ubuntu-24.04
           - arch: aarch64
             debarch: arm64
+            runson: ubuntu-24.04-arm
           - arch: riscv64
             debarch: riscv64
+            runson: ubuntu-24.04
           - arch: loongarch64
             debarch: loong64
-    runs-on: ubuntu-24.04
+            runson: ubuntu-24.04
+    runs-on: ${{ matrix.runson }}
     name: Generate ISO for ${{ matrix.variant }} - ${{ matrix.arch }}
     steps:
       - uses: actions/checkout@v4
@@ -34,6 +38,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y wget dosfstools arch-install-scripts sudo pacman-package-manager xorriso arch-install-scripts squashfs-tools systemd-container qemu-user-static
+          sudo systemctl restart systemd-binfmt
       - name: Build ISO for ${{ matrix.variant }} - ${{ matrix.arch }}
         run: |
           ./gen.sh ${{ matrix.variant }} ${{ matrix.arch }}
