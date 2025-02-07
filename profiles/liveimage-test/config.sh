@@ -26,25 +26,4 @@ EOF
 
 wget "https://raw.githubusercontent.com/eweOS/infra/main/test/server.conf" -O /etc/nginx/nginx.conf
 
-mkdir -p /var/lib/connman
-
-cat <<EOF >/var/lib/connman/eth.config
-[global]
-Name=eth
-
-[service_eth0]
-Type=ethernet
-IPv4=192.168.1.104/24/192.168.1.1
-IPv6=off
-DeviceName=eth0
-Nameservers=172.23.33.1
-
-[service_eth1]
-Type=ethernet
-IPv4=off
-IPv6=2a0d:2580:ff0c:1:57::104/56/2a0d:2580:ff0c::
-DeviceName=eth1
-
-EOF
-
 mv /etc/resolv.conf.bak /etc/resolv.conf
