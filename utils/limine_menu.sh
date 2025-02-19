@@ -66,9 +66,4 @@ for subprofile in $(ls profiles/$PROFILE/subprofiles); do
     limine_menu_render_subprofile_adv "$subprofile_name" "low memory mode" $subprofile "ram=0 quiet splash"
 done
 
-cat <<EOF | $RUNAS tee -a $CFGOUT
-/Resume Default Boot Sequence
-    protocol: chainload_next
-EOF
-
 fi
