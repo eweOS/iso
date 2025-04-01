@@ -13,7 +13,7 @@ function limine_menu_render_subprofile() {
   cat <<EOF | $RUNAS tee -a $CFGOUT
 /eweOS $TARGET_ARCH ($title)
     protocol: linux
-    kernel_path: boot():/${kernel_file}
+    path: boot():/${kernel_file}
     cmdline: live=${subprofile_id} quiet splash
     module_path: boot():/${initrd_file}
 EOF
@@ -27,7 +27,7 @@ function limine_menu_render_subprofile_adv() {
   cat <<EOF | $RUNAS tee -a $CFGOUT
 //eweOS $TARGET_ARCH ($title, $subtitle)
     protocol: linux
-    kernel_path: boot():/${kernel_file}
+    path: boot():/${kernel_file}
     cmdline: live=${subprofile_id} $cmdline
     module_path: boot():/${initrd_file}
 EOF
