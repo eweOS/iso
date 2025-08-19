@@ -7,3 +7,4 @@ fcitx5-gtk
 gvfs
 firefox
 gparted
+ttf-noto-base-variable
