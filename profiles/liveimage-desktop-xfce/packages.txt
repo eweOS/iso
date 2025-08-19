@@ -11,7 +11,6 @@ linux-firmware-qcom
 llvm
 wpa_supplicant
 seatd
-ttf-unifont
 ttf-dejavu
 networkmanager
 plymouth
