@@ -10,7 +10,7 @@ modules_list="fs lib arch crypto \
   drivers/md drivers/ata drivers/scsi drivers/block \
   drivers/virtio drivers/usb/host drivers/usb/storage drivers/mmc \
   drivers/gpu/drm/i915 drivers/gpu/drm/virtio"
-compress='gzip -9'
+compress='zstd -9'
 live_ram=1
 live_ram_opts="size=50%,mode=0755"
 EOF
