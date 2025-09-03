@@ -36,7 +36,7 @@ if [[ $PROFILE == liveimage* ]]; then
       mkdir -p ./tmpdir/layers/$layer
       LOWERLAYERS+="$PWD/tmpdir/layers/${layer}:"
     done
-    $RUNAS mount -t overlay overlay -o lowerdir=${LOWERLAYERS%:},upperdir=$PWD/tmpdir/layers/$upperlayer,workdir=$PWD/tmpdir/overlay_workdir ./tmpdir/rootfs
+    $RUNAS mount -t overlay overlay -o lowerdir=${LOWERLAYERS%:},upperdir=$PWD/tmpdir/layers/$upperlayer,workdir=$PWD/tmpdir/overlay_workdir,index=off ./tmpdir/rootfs
   fi
 fi
 }
