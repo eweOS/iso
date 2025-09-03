@@ -14,7 +14,7 @@ function limine_menu_render_subprofile() {
 /eweOS $TARGET_ARCH ($title)
     protocol: linux
     path: boot():/${kernel_file}
-    cmdline: live=${subprofile_id} quiet splash
+    cmdline: live=${subprofile_id} rw quiet splash
     module_path: boot():/${initrd_file}
 EOF
 }
@@ -28,7 +28,7 @@ function limine_menu_render_subprofile_adv() {
 //eweOS $TARGET_ARCH ($title, $subtitle)
     protocol: linux
     path: boot():/${kernel_file}
-    cmdline: live=${subprofile_id} $cmdline
+    cmdline: live=${subprofile_id} rw $cmdline
     module_path: boot():/${initrd_file}
 EOF
 }
