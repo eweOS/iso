@@ -15,6 +15,7 @@ networkmanager
 plymouth
 arch-install-scripts
 e2fsprogs
+lvm2
 btop
 xdg-user-dirs
 musl-locales

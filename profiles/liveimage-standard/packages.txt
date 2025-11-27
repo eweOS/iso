@@ -9,5 +9,6 @@ linux-firmware-amdgpu
 linux-firmware-iwlwifi
 linux-firmware-mediatek
 linux-firmware-qcom
+lvm2
 connman
 wpa_supplicant
