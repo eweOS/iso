@@ -13,10 +13,12 @@ jobs:
       fail-fast: false
       matrix:
         arch: [x86_64, aarch64, riscv64, loongarch64]
-        variant: [liveimage-desktop-xfce, liveimage-standard, tarball]
+        variant: [liveimage-desktop-plasma, liveimage-desktop-xfce, liveimage-standard, tarball]
         exclude:
           - arch: riscv64
             variant: liveimage-desktop-xfce
+          - arch: riscv64
+            variant: liveimage-desktop-plasma
         include:
           - arch: x86_64
             debarch: amd64

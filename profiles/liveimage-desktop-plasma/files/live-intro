@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cat /etc/motd
+
+cat <<EOF
+
+To install eweOS to your disk, check wiki first:
+
+  https://os-wiki.ewe.moe
+
+EOF
+
+bash
