@@ -2,7 +2,7 @@ name: Generate ISO image
 
 on:
   schedule:
-    - cron: '0 0 */3 * *'
+    - cron: '0 0 */7 * *'
   workflow_dispatch:
   pull_request:
     types: [opened, reopened]
