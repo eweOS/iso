@@ -12,6 +12,7 @@ llvm
 wpa_supplicant
 seatd
 networkmanager
+nm-connection-editor
 plymouth
 arch-install-scripts
 e2fsprogs
